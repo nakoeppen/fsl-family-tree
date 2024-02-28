@@ -84,7 +84,15 @@ while(not input.eql?("q"))
         selectedMember = query
         puts("#{selectedMember.getName} has been successfully found and is now selected")
     when '3' #Show member profile
-
+        puts("Name: #{selectedBrother.getName()}")
+        puts("Member ID: #{selectedBrother.getID()}")
+        puts("Initiation Class: #{selectedBrother.getInitationClass()}")
+        if(not selectedBrother.getBig().nil?)
+            puts("Big: #{selectedBrother.getBig().getName()}")
+        end
+        if(not selectedBrother.getLittles().empty?)
+            selectedBrother.getLittles().each { |little| puts("Little: #{little.getName()}")}
+        end
     when '4' #Add member
         member = createMember()
         puts("Please enter the name of #{member.getName}'s Big...")

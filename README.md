@@ -10,3 +10,12 @@ This project is built using Ruby. It features a command line interface which all
 - Compiling/Visualizing data to HTML (or other easily accessibly file format)
 
 ## How to Use
+1. Install the JSON package. If you also plan to use the test suite, install the rspec package as well.
+```
+gem install json
+gem install rspec
+```
+2. Run the program
+```
+ruby main.rb
+```
