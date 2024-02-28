@@ -1,5 +1,5 @@
 class FSLMem
-    
+
     def initialize(memID, memName, memInitationClass, memBig, memNotes) #This constructor may be phased out
         @id = memID
         @name = memName
@@ -56,11 +56,14 @@ class FSLMem
 
     def setBig=(newBig)
         @big = newBig
-        #newBig.addLittle(self)
+        if (not newBig.nil?)
+            newBig.addLittle(self)
+        end
     end
 
+    #This method is private, the only way one should make a big-little relationship is through 'setBig'
     def addLittle(little)
-        little.setBig=(self)
+        #little.setBig=(self)
         @littles.append(little)
     end
 

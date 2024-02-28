@@ -29,22 +29,6 @@ class FSLFam
         return memList.find{|mem| mem.getID().eql?(memID)}
     end
 
-    def as_json(options = { })
-        {
-            "json_class" => self.class.name,
-            "data" => { "elements" => self.to_a }
-        }
-    end
-
-    def to_json(*a)
-        as_json.to_json(*a)
-    end
-
-    #Static Method
-    #def self.json_create(o)
-    #    new o["data"]["elements"]
-    #end
-
     #Static Method
     def self.compileMemList(head, list)
         list.append(head)

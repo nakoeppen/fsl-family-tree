@@ -3,6 +3,7 @@ This project is built using Ruby. It features a command line interface which all
 
 ## Features
 - All members are stored as FSLMem, which contains their name, FSL ID, initiation class, big, littles, and any important/related notes.
+- All families are stored as FSLFam, which contains the family name, the head of the family, and any important/related notes.
 
 ## In Progress
 - Creating TUI to be able to manipulate JSON file data
@@ -10,10 +11,9 @@ This project is built using Ruby. It features a command line interface which all
 - Compiling/Visualizing data to HTML (or other easily accessibly file format)
 
 ## How to Use
-1. Install the JSON package. If you also plan to use the test suite, install the rspec package as well.
+1. Install the required packages by entering the directory in your terminal and typing "bundle"
 ```
-gem install json
-gem install rspec
+bundle
 ```
 2. Run the program
 ```

@@ -28,13 +28,6 @@ describe FSLMem do
         expect(brother.getLittles().index(brother2).nil?).to eq(true) #brother2 is not in brother's littles
     end
 
-    it "updates association between bigs with their newly added littles" do
-        brother3 = FSLMem.new(1150, "Dmitri Lopez", "Fall 2023", nil, "He three is cool")
-        brother2.addLittle(brother3)
-        expect(brother3.getBig()).to eq(brother2)
-    end
-
-    #Currently this test fails
     it "updates association between littles with their newly added bigs" do
         brother3 = FSLMem.new(1150, "Dmitri Lopez", "Fall 2023", nil, "He three is cool")
         brother3.setBig=(brother2)

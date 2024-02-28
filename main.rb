@@ -2,6 +2,9 @@
 require 'json'
 require_relative 'fslfam.rb'
 require_relative 'fslmem.rb'
+require_relative 'fslmemserializer.rb'
+
+#------------------------------------------------------------Methods------------------------------------------------------------#
 
 def createFamily()
     puts("Please enter the name of the FSL Family...")
@@ -25,10 +28,25 @@ def createMember()
     return FSLMem.new(id, name, initiationClass, nil, notes)
 end
 
-puts("Welcome to the Fraternity/Sorority Family Tree Builder")
+def saveFamily(family)
+    if (File.file?("#{family.getName()}.json"))
+        puts("This file already exists. Are you sure you want to overwrite it?")
+        puts("y - Overwrite pre-existing file")
+        puts("n - Cancel Save")
+        input = gets.chomp
+    end
+    if (not input.eq('n'))
+        members = FSLFam.compileMemList(family.getHead(), Array.new)
+        serializer = FSLMemSerializer.new(members, is_collection: true)
+        File.open("#{family.getName()}.json", 'w') do |f|
+            f.write(serializer.to_json())
+        end
+    end
+end
 
-#brother = FSLMem.new(1140, "Nicholas Koeppen", "Spring 2022", nil, "He is cool")
-#brother2 = FSLMem.new(1145, "Matt Dembny", "Fall 2023", brother, "He is cool")
+#------------------------------------------------------------Main Program------------------------------------------------------------#
+
+puts("Welcome to the Fraternity/Sorority Family Tree Builder")
 
 input = ""
 family = nil
@@ -101,8 +119,8 @@ while(not input.eql?("q"))
             puts("Sorry, but there was no one found by that name. Please try again...")
             big = family.searchByName(gets.chomp)
         end
-        big.addLittle(member)
-    when '5' #Edit member
+        member.setBig(big)
+    when '5' #Edit member (In progress)
         puts("What would you like to edit/change?")
         puts("1 - Change/Edit Name")
         puts("2 - Change/Edit ID Number")
@@ -114,12 +132,17 @@ while(not input.eql?("q"))
         input = gets.chomp
     when 'n' #Create a new FSLFam
         family = createFamily()
-    when 'o' #Open JSON FSLFam data file
-
-    when 's' #Save JSON FSFam data file
-        File.open("#{family.getName()}.json", 'w') do |f|
-            f.write(family.to_json())
+    when 'o' #Open JSON FSLFam data file (In progress)
+        if (family.nil?)
+            puts("There is already an opened family. Would you like to save the current family?")
+            puts("y - Save current family: (#{family.getName()})")
+            puts("n - Do not save")
+            input = gets.chomp
         end
+        if (input.eq('y'))
+            saveFamily(family)
+        end
+    when 's' #Save JSON FSFam data file
+        saveFamily(family)
     end
 end
-
