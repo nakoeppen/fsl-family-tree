@@ -1,4 +1,5 @@
 require 'rspec/autorun'
+require 'json'
 require_relative 'fslfam.rb'
 require_relative 'fslmem.rb'
 
@@ -46,5 +47,15 @@ describe FSLFam do
 
     it "searches and returns FSLMem by ID" do
         expect(family.searchByID(brother2.getID)).to eq(brother2)
+    end
+
+    it "imports FSLMems from JSON" do
+        filename = "./families/test.fslt"
+        file = File.read(filename)
+        osMems = JSON.parse(file, object_class: OpenStruct)
+        family = FSLFam.hashToFSLFam(filename.split('.').first, osMems)
+        fslMemIDs = family.compileMemList().map{|mem| mem.getID()}
+        hasEveryone = fslMemIDs.include?("1") and fslMemIDs.include?("2") and fslMemIDs.include?("3") and fslMemIDs.include?("4")
+        expect(hasEveryone).to eq(true)
     end
 end

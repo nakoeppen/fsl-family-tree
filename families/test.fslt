@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Joe Smith",
+    "id": "1",
+    "initiationClass": "",
+    "big": null,
+    "notes": "Originally came from the Oakland A's Family. His big in that family is Garrett Scheiber."
+  },
+  {
+    "name": "Chris Thompson",
+    "id": "2",
+    "initiationClass": "",
+    "big": "1",
+    "notes": ""
+  },
+  {
+    "name": "Thomas Murphy",
+    "id": "3",
+    "initiationClass": "",
+    "big": "1",
+    "notes": ""
+  },
+  {
+    "name": "John Mitchell",
+    "id": "4",
+    "initiationClass": "",
+    "big": "2",
+    "notes": ""
+  }
+]

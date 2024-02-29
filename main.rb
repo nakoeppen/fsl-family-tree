@@ -1,13 +1,16 @@
 #!/usr/bin/ruby -w
+
 require 'json'
 require_relative 'fslfam.rb'
 require_relative 'fslmem.rb'
 require_relative 'fslmemserializer.rb'
 
+##------------------------------------------------------------Config------------------------------------------------------------#
+
 FILE_EXT = ".fslt"
 FAMILIES_DIR = "./families/"
 
-#------------------------------------------------------------Methods------------------------------------------------------------#
+##------------------------------------------------------------Methods------------------------------------------------------------#
 
 def bigNameSearch(name, family)
     bigs = family.searchByName(name)
@@ -63,10 +66,10 @@ def createMember(family)
         puts("That ID has already been created. Please use a different ID...")
         id = gets.chomp
     end
-    puts("Please enter the name of this member's Big...")
-    big = bigNameSearch(gets.chomp, family)
     puts("Please enter this member's initiation class (ie. Fall 2020)...")
     initiationClass = gets.chomp
+    puts("Please enter the name of this member's Big...")
+    big = bigNameSearch(gets.chomp, family)
     puts("Please enter any notes that should be associated with this member (just click enter if this does not apply)...")
     notes = gets.chomp
 
@@ -97,7 +100,7 @@ def importFamily()
     filename = gets.chomp
     while(not potentialFiles.include?(filename))
         puts("You typed the wrong filename. Your options are listed below.")
-        potentialFiles = Dir.glob("#{FAMILIES_DIR}*#{FILE_EXT}")
+        potentialFiles = Dir.glob("*#{FILE_EXT}", base: FAMILIES_DIR)
         potentialFiles.each {|potentialFile| puts("FSLFam File: #{potentialFile}")}
         filename = gets.chomp
     end
@@ -150,10 +153,11 @@ while(not input.eql?("q"))
     case input
     when '1' #Search up and select member by name
         puts("Please enter the name you would like to seach for...")
-        query = family.searchByName(gets.chomp)
+        query = bigNameSearch(gets.chomp, family)
         while(query.nil?)
             puts("Sorry, but there was no one found by that name. Please try again...")
-            query = family.searchByName(gets.chomp)
+            query = bigNameSearch(gets.chomp, family)
+
         end
         selectedMember = query
         puts("#{selectedMember.getName()} has been successfully found and is now selected")
@@ -229,6 +233,7 @@ while(not input.eql?("q"))
         unsavedChanges = false
     when 's' #Save JSON FSLFam data file
         saveFamily(family)
+        unsavedChanges = false
     end
 end
 

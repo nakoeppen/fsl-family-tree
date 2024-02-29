@@ -1,4 +1,3 @@
-families/
+families/*
+!families/test.fslt
 Gemfile.lock
-temp.rb
-todo
