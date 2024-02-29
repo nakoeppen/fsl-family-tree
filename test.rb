@@ -33,7 +33,6 @@ describe FSLMem do
         brother3.setBig=(brother2)
         expect(brother2.getLittles().index(brother3).nil?).to eq(false)
     end
-
 end
 
 describe FSLFam do

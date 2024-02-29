@@ -56,7 +56,7 @@ class FSLMem
 
     def setBig=(newBig)
         @big = newBig
-        if (not newBig.nil?)
+        if (not newBig.nil? and not newBig.getLittles().include?(self))
             newBig.addLittle(self)
         end
     end

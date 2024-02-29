@@ -4,7 +4,7 @@ require_relative 'fslmem.rb'
 
 class FSLMemSerializer < Jserializer::Base
     root :FSLMem
-    attributes :name, :id, :initiationClass, :big
+    attributes :name, :id, :initiationClass, :big, :notes
 
     def name
         "#{object.getName()}"
@@ -20,7 +20,11 @@ class FSLMemSerializer < Jserializer::Base
 
     def big
         if (not object.getBig().nil?)
-            "#{object.getBig().getName()}"
+            "#{object.getBig().getID()}"
         end
+    end
+
+    def notes
+        "#{object.getNotes()}"
     end
 end
