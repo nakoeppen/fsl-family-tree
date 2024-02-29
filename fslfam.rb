@@ -31,20 +31,7 @@ class FSLFam
         return compileMemList().select{|little| little.getBig().eql?(big)}
     end
 
-    #Static Method
-    def self.hashToFSLFam(name, osMems) #osMems is not FSLMem, but rather is an OpenStruct Array
-        #Create FSLFam by finding the member with no big
-        osHead = osMems.find{|mem| mem.big.nil?}
-        head = FSLMem.new(osHead.id, osHead.name, osHead.initationClass, nil, osHead.notes)
-        family = FSLFam.new(name, head, nil)
-        osMems.delete(osMems.find{|mem| mem.big.nil?})
-        #Convert array from OpenStruct to FSLMem
-        osMems.map {|member| FSLMem.new(member.id, member.name, member.initationClass, family.searchByID(member.big), member.notes)}
-        return family
-    end
-
-    #Static Method
-    def compileMemList() #Head is FSLMem
+    def compileMemList()
         @memList = []
         def traverse(node)
             @memList.push(node)
@@ -56,17 +43,15 @@ class FSLFam
         return @memList;
     end
 
-=begin
     #Static Method
-    def self.compileMemList(head, list) #Head is FSLMem
-        list.append(head)
-        if (head.getLittles().empty?)
-            return list
-        else
-            head.getLittles().each do |little|
-                return FSLFam.compileMemList(little, list)
-            end
-        end
+    def self.hashToFSLFam(name, osMems) #osMems is not FSLMem, but rather is an OpenStruct Array
+        #Create FSLFam by finding the member with no big
+        osHead = osMems.find{|mem| mem.big.nil?}
+        head = FSLMem.new(osHead.id, osHead.name, osHead.initationClass, nil, osHead.notes)
+        family = FSLFam.new(name, head, nil)
+        osMems.delete(osMems.find{|mem| mem.big.nil?})
+        #Convert array from OpenStruct to FSLMem
+        osMems.map {|member| FSLMem.new(member.id, member.name, member.initationClass, family.searchByID(member.big), member.notes)}
+        return family
     end
-=end
 end
