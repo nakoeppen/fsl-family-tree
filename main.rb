@@ -9,7 +9,7 @@ FAMILIES_DIR = "./families/"
 
 #------------------------------------------------------------Methods------------------------------------------------------------#
 
-def bigNameSearch(name)
+def bigNameSearch(name, family)
     bigs = family.searchByName(name)
     big = nil
     while(bigs.empty?) #While big is not found
@@ -64,7 +64,7 @@ def createMember(family)
         id = gets.chomp
     end
     puts("Please enter the name of this member's Big...")
-    bigNameSearch(gets.chomp)
+    bigNameSearch(gets.chomp, family)
     puts("Please enter this member's initiation class (ie. Fall 2020)...")
     initiationClass = gets.chomp
     puts("Please enter any notes that should be associated with this member (just click enter if this does not apply)...")
@@ -208,7 +208,7 @@ while(not input.eql?("q"))
             selectedMember.setNotes=(gets.chomp)
         when '5' #Big
             puts("Please input the name of the new big for #{selectedMember.getName()}...")
-            selectedMember.setBig=(bigNameSearch(gets.chomp))
+            selectedMember.setBig=(bigNameSearch(gets.chomp, family))
         #when '6' #Add Little
         #when '7' #Remove Little
         end
