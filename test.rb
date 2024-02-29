@@ -41,7 +41,7 @@ describe FSLFam do
     let(:family) {FSLFam.new("Arete", brother, nil)}
     
     it "searches and returns FSLMem by name" do
-        expect(family.searchByName(brother2.getName)).to eq(brother2)
+        expect(family.searchByName(brother2.getName).pop()).to eq(brother2)
     end
 
     it "searches and returns FSLMem by ID" do

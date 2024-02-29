@@ -81,9 +81,9 @@ def saveFamily(family)
         input = gets.chomp
     end
     if (not input.eql?('n'))
-        members = FSLFam.compileMemList(family.getHead(), Array.new)
+        members = family.compileMemList()
         serializer = FSLMemSerializer.new(members, is_collection: true)
-        puts(JSON.pretty_generate(serializer.as_json(root: false)))
+        #puts(JSON.pretty_generate(serializer.as_json(root: false))) #For Debugging
         File.open("#{FAMILIES_DIR}#{family.getName()}#{FILE_EXT}", 'w') do |f|
             f.write(JSON.pretty_generate(serializer.as_json(root: false)))
         end

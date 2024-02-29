@@ -20,18 +20,15 @@ class FSLFam
     end
 
     def searchByName(memName)
-        memList = FSLFam.compileMemList(@head, Array.new)
-        return memList.select{|mem| mem.getName().eql?(memName)}
+        return compileMemList().select{|mem| mem.getName().eql?(memName)}
     end
 
     def searchByID(memID)
-        memList = FSLFam.compileMemList(@head, Array.new)
-        return memList.find{|mem| mem.getID().eql?(memID)}
+        return compileMemList().find{|mem| mem.getID().eql?(memID)}
     end
 
     def findLittles(big)
-        memList = FSLFam.compileMemList(@head, Array.new)
-        return memList.select{|little| little.getBig().eql?(big)}
+        return compileMemList().select{|little| little.getBig().eql?(big)}
     end
 
     #Static Method
@@ -46,7 +43,20 @@ class FSLFam
         return family
     end
 
+    #Static Method
+    def compileMemList() #Head is FSLMem
+        @memList = []
+        def traverse(node)
+            @memList.push(node)
+            node.getLittles().each do |little|
+                traverse(little)
+            end
+        end
+        traverse(@head)
+        return @memList;
+    end
 
+=begin
     #Static Method
     def self.compileMemList(head, list) #Head is FSLMem
         list.append(head)
@@ -58,4 +68,5 @@ class FSLFam
             end
         end
     end
+=end
 end

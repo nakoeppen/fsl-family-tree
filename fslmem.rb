@@ -4,13 +4,14 @@ class FSLMem
         @id = memID
         @name = memName
         @initiationClass = memInitationClass
+        @notes = memNotes
+
         @big = memBig #Uses FSLMem objects
         @littles = Array.new #Contains FSLMem objects
-        @notes = memNotes
 
         #Adds the new little to big's little array
         if (not memBig.nil?)
-            memBig.addLittle(self)
+            memBig.getLittles().append(self)
         end
     end
 
@@ -57,14 +58,8 @@ class FSLMem
     def setBig=(newBig)
         @big = newBig
         if (not newBig.nil? and not newBig.getLittles().include?(self))
-            newBig.addLittle(self)
+            newBig.getLittles().append(self)
         end
-    end
-
-    #This method is private, the only way one should make a big-little relationship is through 'setBig'
-    def addLittle(little)
-        #little.setBig=(self)
-        @littles.append(little)
     end
 
     def removeLittle(little)
