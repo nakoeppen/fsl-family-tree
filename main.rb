@@ -64,7 +64,7 @@ def createMember(family)
         id = gets.chomp
     end
     puts("Please enter the name of this member's Big...")
-    bigNameSearch(gets.chomp, family)
+    big = bigNameSearch(gets.chomp, family)
     puts("Please enter this member's initiation class (ie. Fall 2020)...")
     initiationClass = gets.chomp
     puts("Please enter any notes that should be associated with this member (just click enter if this does not apply)...")
